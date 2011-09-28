@@ -1,0 +1,27 @@
+Goals
+-----
+
+RJS is a wrapper around the WebGL API intended to hide complexity of specific
+implementation details.
+
+It isn't a full graphics solution - there is no culling, no scene graph, no
+abstractions for objects for animation/movement.
+These features should be in another library that leverages this one.
+
+Ideal Usage Scenario
+--------------------
+
+- Can buffer vertices to send to the GPU
+- Can associate vertices to be drawn with a shader
+- Shaders can have files associated with them (shader source, images, maps)
+- Can buffer shaders to be drawn after vertices are drawn
+
+Internal Implementation Details
+-------------------------------
+
+- Renders to FBO
+- Fully deferred
+- Shaders render vertices, lights, shadows, particles, etc
+- Maintains a depth buffer for vertices
+- Renders back to front for transparent items
+- Array interleaving
