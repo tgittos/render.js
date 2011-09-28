@@ -1,7 +1,16 @@
 RJS.Renderer = {};
 
-RJS.Renderer.render = function() {
+RJS.Renderer.render = function(vertices, lines, faces, shader, perspectiveMatrix, texture = null) {
 	var gl = RJS.Context;
+	var fbo = RJS.Renderer.createFBO(gl.width, gl.height);
+	fbo = RJS.Renderer.renderToFBO(fbo, vertices, lines, faces, shader, perspectiveMatrix, texture);
+	RJS.Renderer.renderToContext(fbo);
+}
+
+RJS.Renderer.renderToContext = function(fbo) {
+	// render the fbo orthographically to the context
+	var gl = RJS.Context;
+	gl.bindFrameBuffer(gl.FRAMEBUFFER, null);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // gl.STENCIL_BUFFER_BIT ?
 }
 
@@ -12,7 +21,7 @@ RJS.Renderer.renderToFBO = function(fbo, vertices, lines, faces, shader, perspec
 	vertices = RJS.Renderer.convertArrayToFloat32Array(vertices);
 	lines = RJS.Renderer.convertArrayToFloat32Array(lines);
 	faces = RJS.Renderer.convertArrayToFloat32Array(faces);
-	
+	// TODO: finish
 }
 
 RJS.Renderer.convertArrayToFloat32Array = function(arr) {
